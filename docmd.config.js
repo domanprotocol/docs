@@ -57,7 +57,7 @@ export default defineConfig({
   copyCode: true,
   pageNavigation: true,
 
-  customJs: [],
+  customJs: ['assets/js/font-preload.js'],
 
   // --- Navigation (Sidebar) ---
   navigation: [
