@@ -1,0 +1,11 @@
+{
+  "type": "module",
+  "scripts": {
+    "dev": "docmd dev",
+    "build": "docmd build",
+    "preview": "docmd preview"
+  },
+  "devDependencies": {
+    "@docmd/core": "^0.7.5"
+  }
+}
