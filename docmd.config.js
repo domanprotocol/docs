@@ -23,12 +23,13 @@ export default defineConfig({
     header: {
       enabled: true,
     },
+    breadcrumbs: true,
     sidebar: {
       collapsible: true,
       defaultCollapsed: false,
     },
     optionsMenu: {
-      position: 'sidebar-top',
+      position: 'header',
       components: {
         search: true,
         themeSwitch: true,
@@ -104,7 +105,13 @@ export default defineConfig({
       twitter: { cardType: 'summary_large_image' }
     },
     sitemap: { defaultChangefreq: 'weekly' },
-    analytics: {}
+    analytics: {},
+    llms: {},
+    pwa: {
+      logo: 'assets/images/icon.png',
+      themeColor: '#3B82F6',
+      bgColor: '#000000',
+    },
   },
 
   // --- Edit Link ---
