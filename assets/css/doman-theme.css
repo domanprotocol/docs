@@ -248,10 +248,14 @@ hr {
   border-color: var(--border-color);
 }
 
-/* ─── Logo sizing fix ─── */
+/* ─── Logo ─── */
 .site-logo img {
   height: 28px;
   width: auto;
+}
+
+.logo-light {
+  filter: invert(1) hue-rotate(180deg);
 }
 
 /* ─── Badge / Status Indicators ─── */

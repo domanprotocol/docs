@@ -6,7 +6,7 @@ export default defineConfig({
 
   // --- Branding ---
   logo: {
-    light: 'assets/images/icon.png',
+    light: 'assets/images/logo.png',
     dark: 'assets/images/logo.png',
     alt: 'DOMAN — Web3 Security & Decision Engine',
     href: '/',
