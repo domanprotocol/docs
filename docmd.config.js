@@ -112,7 +112,6 @@ export default defineConfig({
         { title: 'Wallet System', path: '/extension/wallet', icon: 'wallet' },
         { title: 'Features', path: '/extension/features', icon: 'zap' },
         { title: 'API & Testing', path: '/extension/api-and-testing', icon: 'server' },
-        { title: 'Design Guide', path: '/extension/EXTENSION_DESIGN_GUIDE', icon: 'palette' },
       ],
     },
   ],
