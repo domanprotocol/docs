@@ -144,22 +144,22 @@ graph TD
 
 ## 3. Tech Stack
 
-| Component | Technology | Version |
-|-----------|------------|---------|
-| Framework | Next.js (App Router) | 16.2.3 |
-| UI Library | React | 19.2.4 |
-| Language | TypeScript | 5.x |
-| Styling | Tailwind CSS | 4.x |
-| ORM | Prisma | 7.7.0 |
-| Database | PostgreSQL (Supabase) | - |
-| Blockchain Client | Viem | 2.48.0 |
-| Wallet Integration | Wagmi | 3.6.4 |
-| Data Fetching | TanStack React Query | 5.100.1 |
-| Validation | Zod | 3.25.76 |
-| Icons | Lucide React | 1.8.0 |
-| Date Utilities | date-fns | 3.6.0 |
-| ID Generation | nanoid | 5.1.9 |
-| Chain | Base (8453) / Base Sepolia (84532) | - |
+| Component          | Technology                         | Version |
+| ------------------ | ---------------------------------- | ------- |
+| Framework          | Next.js (App Router)               | 16.2.3  |
+| UI Library         | React                              | 19.2.4  |
+| Language           | TypeScript                         | 5.x     |
+| Styling            | Tailwind CSS                       | 4.x     |
+| ORM                | Prisma                             | 7.7.0   |
+| Database           | PostgreSQL (Supabase)              | -       |
+| Blockchain Client  | Viem                               | 2.48.0  |
+| Wallet Integration | Wagmi                              | 3.6.4   |
+| Data Fetching      | TanStack React Query               | 5.100.1 |
+| Validation         | Zod                                | 3.25.76 |
+| Icons              | Lucide React                       | 1.8.0   |
+| Date Utilities     | date-fns                           | 3.6.0   |
+| ID Generation      | nanoid                             | 5.1.9   |
+| Chain              | Base (8453) / Base Sepolia (84532) | -       |
 
 ---
 
@@ -182,19 +182,19 @@ wallo/                                    # Project root
 │   ├── globals.css                       # Global styles + CSS variables
 │   │
 │   ├── (marketing)/                      # Marketing route group
-│   │   └── page.tsx                      # Landing page (467 lines)
+│   │   └── page.tsx                      # Landing page
 │   │
 │   ├── (dashboard)/                      # Dashboard route group
 │   │   └── dashboard/
 │   │       ├── layout.tsx                # Dashboard layout (sidebar + header)
-│   │       ├── page.tsx                  # Overview / stats (159 lines)
-│   │       ├── checker/page.tsx          # Address checker + voting (509 lines)
-│   │       ├── deploy/page.tsx           # Deploy ScamReporter contract (232 lines)
-│   │       ├── history/page.tsx          # Scan history (125 lines)
-│   │       ├── settings/page.tsx         # Settings (121 lines)
+│   │       ├── page.tsx                  # Overview / stats
+│   │       ├── checker/page.tsx          # Address checker + voting
+│   │       ├── deploy/page.tsx           # Deploy ScamReporter contract
+│   │       ├── history/page.tsx          # Scan history
+│   │       ├── settings/page.tsx         # Settings
 │   │       ├── tags/page.tsx             # Tag management (server wrapper)
-│   │       │   └── tags-client.tsx       # Tag management client (185 lines)
-│   │       └── watchlist/page.tsx        # Watchlist + add/remove (206 lines)
+│   │       │   └── tags-client.tsx       # Tag management client
+│   │       └── watchlist/page.tsx        # Watchlist + add/remove
 │   │
 │   └── api/                              # API routes
 │       ├── health/route.ts               # Health check
@@ -225,14 +225,14 @@ wallo/                                    # Project root
 │   │   ├── button.tsx                    # Button variants (primary/secondary/ghost/danger)
 │   │   ├── card.tsx                      # Card container
 │   │   ├── input.tsx                     # Styled input field
-│   │   ├── modal.tsx                     # Full-screen modal with backdrop (86 lines)
+│   │   ├── modal.tsx                     # Full-screen modal with backdrop
 │   │   ├── badge.tsx                     # Status badges + TrustScoreBadge
 │   │   └── steps.tsx                     # Multi-step indicator (57 lines)
 │   │
 │   ├── dashboard/                        # Dashboard-specific
-│   │   ├── sidebar.tsx                   # Navigation sidebar (103 lines)
-│   │   ├── header.tsx                    # Header + WalletButton (117 lines)
-│   │   ├── report-scam-modal.tsx         # Multi-step scam report (500 lines)
+│   │   ├── sidebar.tsx                   # Navigation sidebar
+│   │   ├── header.tsx                    # Header + WalletButton
+│   │   ├── report-scam-modal.tsx         # Multi-step scam report
 │   │   └── trust-score-badge.tsx         # Trust score display (45 lines)
 │   │
 │   └── marketing/                        # Marketing page components
@@ -240,27 +240,27 @@ wallo/                                    # Project root
 │       └── footer.tsx                    # Footer
 │
 ├── hooks/                                # Custom React hooks
-│   └── use-report-scam.ts               # Scam reporting workflow (225 lines)
+│   └── use-report-scam.ts               # Scam reporting workflow
 │
 ├── config/                               # Configuration modules
 │   ├── chains.ts                         # Base chain definitions
-│   ├── contracts.ts                      # ScamReporter ABI + addresses (115 lines)
+│   ├── contracts.ts                      # ScamReporter ABI + addresses
 │   ├── endpoints.ts                      # External API endpoints
-│   └── scam-patterns.ts                  # Scam detection patterns (362 lines)
+│   └── scam-patterns.ts                  # Scam detection patterns
 │
 ├── lib/                                  # Utility libraries
-│   ├── api-response.ts                   # API response builders (204 lines)
-│   ├── constants.ts                      # App-wide constants (371 lines)
-│   ├── error-handler.ts                  # Centralized error handling (152 lines)
+│   ├── api-response.ts                   # API response builders
+│   ├── constants.ts                      # App-wide constants
+│   ├── error-handler.ts                  # Centralized error handling
 │   ├── hash.ts                           # Keccak256 hashing (35 lines)
-│   ├── prisma.ts                         # Prisma singleton with pg adapter (52 lines)
-│   ├── utils.ts                          # Utility functions (386 lines)
-│   ├── validation.ts                     # Zod schemas (321 lines)
-│   ├── viem.ts                           # Blockchain client + ENS (234 lines)
+│   ├── prisma.ts                         # Prisma singleton with pg adapter
+│   ├── utils.ts                          # Utility functions
+│   ├── validation.ts                     # Zod schemas
+│   ├── viem.ts                           # Blockchain client + ENS
 │   └── wagmi.ts                          # Wallet config (28 lines)
 │
 ├── services/                             # Business logic layer
-│   ├── scanner-service.ts                # Contract scanning + domain + batch (900+ lines)
+│   ├── scanner-service.ts                # Contract scanning + domain + batch
 │   ├── report-service.ts                 # Report management (355 lines)
 │   ├── sync-service.ts                   # External data sync (523 lines)
 │   ├── address-service.ts                # Address management (455 lines)
@@ -270,11 +270,11 @@ wallo/                                    # Project root
 │   └── domain-service.ts                 # Domain scam checking (196 lines)
 │
 ├── types/                                # TypeScript type definitions
-│   ├── api.ts                            # API request/response types (474 lines)
-│   └── models.ts                         # Database model types (510 lines)
+│   ├── api.ts                            # API request/response types
+│   └── models.ts                         # Database model types
 │
 ├── prisma/                               # Database
-│   ├── schema.prisma                     # Prisma schema (409 lines, 13 models)
+│   ├── schema.prisma                     # Prisma schema
 │   ├── seed.ts                           # Seed data script
 │   └── migrations/                       # SQL migration files
 │       ├── 20260418_*.sql                # Initial schema + address enhancements
@@ -282,15 +282,7 @@ wallo/                                    # Project root
 │       ├── 20260421_*.sql                # Watchlist support
 │       └── migration_lock.toml           # Migration lock
 │
-├── public/                               # Static assets
-│   ├── logo1.png                         # Brand logo variant
-│   └── logo2.png                         # Brand logo variant
-│
-└── docs/                                 # Documentation
-    ├── PRD.md                            # Product Requirements Document
-    ├── FRONTEND_INTEGRATION.md           # Frontend integration guide (1437 lines)
-    ├── EXTENSION_INTEGRATION.md          # Extension integration guide (1642 lines)
-    ├── EXTENSION_DESIGN_GUIDE.md         # Extension design guide (1290 lines)
-    ├── AUDIT_REPORT.md                   # Security audit report (338 lines)
-    └── postman-collection.json           # Postman API collection
+└── public/                               # Static assets
+    ├── logo1.png                         # Brand logo variant
+    └── logo2.png                         # Brand logo variant
 ```

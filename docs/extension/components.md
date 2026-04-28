@@ -7,7 +7,7 @@ description: "Background worker, popup UI, options page, content scripts"
 
 ### 1.1 Background Service Worker
 
-**File:** [src/background.ts](src/background.ts) (~700 lines)
+**File:** [src/background.ts](src/background.ts)
 
 **Role:** Central message hub and wallet state manager. All critical operations run here.
 
@@ -102,7 +102,7 @@ The extension icon badge changes based on the tab's safety level:
 
 ### 1.2 Popup UI
 
-**File:** [src/popup.tsx](src/popup.tsx) (~1015 lines)
+**File:** [src/popup.tsx](src/popup.tsx)
 
 **Role:** Main extension UI displayed when the user clicks the extension icon.
 
@@ -189,7 +189,7 @@ graph TD
 
 ### 1.3 Options / Settings Page
 
-**File:** [src/options.tsx](src/options.tsx) (~130 lines)
+**File:** [src/options.tsx](src/options.tsx)
 
 **Role:** Full-tab settings page opened via `chrome.runtime.openOptionsPage()`.
 

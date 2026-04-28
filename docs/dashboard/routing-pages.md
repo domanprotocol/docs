@@ -95,7 +95,7 @@ description: "Route structure, layouts, UI components, and dashboard pages"
 - Auto-refresh periodically
 
 #### Tags (`/dashboard/tags`)
-- Server component wrapper + `TagsClient` client component (185 lines)
+- Server component wrapper + `TagsClient` client component
 - Search bar: filter by address or tag name
 - Address cards with existing tag badges
 - Inline add tag form per address

@@ -63,6 +63,16 @@ export default defineConfig({
   navigation: [
     { title: 'Introduction', path: '/', icon: 'home' },
     {
+      title: 'Smart Contracts',
+      icon: 'file-code',
+      collapsible: true,
+      children: [
+        { title: 'Overview', path: '/smart-contracts/', icon: 'eye' },
+        { title: 'ScamReporter', path: '/smart-contracts/scam-reporter', icon: 'shield' },
+        { title: 'Development', path: '/smart-contracts/development', icon: 'wrench' },
+      ],
+    },
+    {
       title: 'Dashboard',
       icon: 'layout-dashboard',
       collapsible: true,

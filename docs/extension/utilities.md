@@ -7,7 +7,7 @@ description: "API client, dApp detector, constants, and type definitions"
 
 ### 1.1 API Client (`api.ts`)
 
-**File:** [src/utils/api.ts](src/utils/api.ts) (~185 lines)
+**File:** [src/utils/api.ts](src/utils/api.ts)
 
 Base URL: `PLASMO_PUBLIC_DOMAN_API_BASE || "http://localhost:3000"`
 
@@ -31,7 +31,7 @@ All requests use:
 
 ### 1.2 dApp Detector (`detect-dapp.ts`)
 
-**File:** [src/utils/detect-dapp.ts](src/utils/detect-dapp.ts) (~112 lines)
+**File:** [src/utils/detect-dapp.ts](src/utils/detect-dapp.ts)
 
 Multi-layer heuristic to detect whether a page is a dApp:
 

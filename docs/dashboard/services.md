@@ -13,7 +13,7 @@ Each service follows the pattern:
 - Returns typed data structures
 - Throws `AppError` for business logic errors
 
-### 1.2 Scanner Service (`scanner-service.ts` — 581 lines)
+### 1.2 Scanner Service (`scanner-service.ts`)
 
 Core scanning engine for smart contract analysis.
 
@@ -47,7 +47,7 @@ flowchart TD
     M --> N["Return ScanResult"]
 ```
 
-### 1.3 Report Service (`report-service.ts` — 355 lines)
+### 1.3 Report Service (`report-service.ts`)
 
 Community report management with voting and reputation.
 
@@ -74,7 +74,7 @@ stateDiagram-v2
     REJECTED --> [*]
 ```
 
-### 1.4 Address Service (`address-service.ts` — 455 lines)
+### 1.4 Address Service (`address-service.ts`)
 
 **Functions:**
 
@@ -86,7 +86,7 @@ stateDiagram-v2
 | `getPopularDApps` | Top dApps by TVL |
 | `getSimilarAddresses` | Find similar contracts |
 
-### 1.5 Sync Service (`sync-service.ts` — 523 lines)
+### 1.5 Sync Service (`sync-service.ts`)
 
 Data synchronization from external sources.
 
@@ -115,11 +115,11 @@ flowchart TD
     I -->|No| J["Return sync summary"]
 ```
 
-### 1.6 Stats Service (`stats-service.ts` — 81 lines)
+### 1.6 Stats Service (`stats-service.ts`)
 
 Platform statistics aggregation: address counts by status, report counts, category distributions.
 
-### 1.7 Leaderboard Service (`leaderboard-service.ts` — 411 lines)
+### 1.7 Leaderboard Service (`leaderboard-service.ts`)
 
 User reputation system:
 
@@ -140,7 +140,7 @@ User reputation system:
 | 200-499 | Expert |
 | 500+ | Master |
 
-### 1.8 ENS Service (`ens-service.ts` — 153 lines)
+### 1.8 ENS Service (`ens-service.ts`)
 
 - `resolveEns(name)` — .eth → 0x address
 - `reverseResolveEns(address)` — 0x → .eth name
@@ -148,7 +148,7 @@ User reputation system:
 - `getEnsRecordsForAddress(address)` — All ENS records
 - Database caching (EnsRecord table)
 
-### 1.9 Domain Service (`domain-service.ts` — 196 lines)
+### 1.9 Domain Service (`domain-service.ts`)
 
 - `checkDomain(domain)` — Check if domain is known scam
 - `listScamDomains(filters)` — Paginated scam domain list
