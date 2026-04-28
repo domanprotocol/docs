@@ -63,42 +63,43 @@ sequenceDiagram
 
 ### Tables
 
-| Table | Description |
-|---|---|
-| `user` | Wallet addresses with aggregated vote and report counts |
-| `scam_vote` | Individual scam votes on specific targets |
-| `scam_report` | Scam reports submitted by users |
+| Table         | Description                                             |
+| ------------- | ------------------------------------------------------- |
+| `user`        | Wallet addresses with aggregated vote and report counts |
+| `scam_vote`   | Individual scam votes on specific targets               |
+| `scam_report` | Scam reports submitted by users                         |
 
 ### Monitored Events
 
-| Event | Trigger | Indexed Fields |
-|---|---|---|
-| `ScamVoteSubmitted` | `submitVote()` called | `reporter`, `targetId`, `targetType`, `reasonHash`, `isScam` |
-| `ScamReportSubmitted` | `submitReport()` called (legacy) | `reporter`, `reasonHash`, `isScam` |
+| Event                 | Trigger                          | Indexed Fields                                               |
+| --------------------- | -------------------------------- | ------------------------------------------------------------ |
+| `ScamVoteSubmitted`   | `submitVote()` called            | `reporter`, `targetId`, `targetType`, `reasonHash`, `isScam` |
+| `ScamReportSubmitted` | `submitReport()` called (legacy) | `reporter`, `reasonHash`, `isScam`                           |
 
 ---
 
 ## Smart Contract
 
-| Property | Value |
-|---|---|
-| Name | ScamReporter |
-| Network | Base Sepolia (Chain ID: 84532) |
-| Address | [`0x65534f1A1BbCa98AD756c7CE38D7097fBA7C237a`](https://sepolia.basescan.org/address/0x65534f1A1BbCa98AD756c7CE38D7097fBA7C237a) |
-| Start Block | 40726553 |
+| Property           | Value                                                                                                                           |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| Name               | ScamReporter                                                                                                                    |
+| Network            | Base Sepolia (Chain ID: 84532)                                                                                                  |
+| Address (Current)  | [`0x574F67B22B49eFd39D03F51627fA79CEB4a2449C`](https://sepolia.basescan.org/address/0x574F67B22B49eFd39D03F51627fA79CEB4a2449C) |
+| Address (Previous) | [`0x65534f1A1BbCa98AD756c7CE38D7097fBA7C237a`](https://sepolia.basescan.org/address/0x65534f1A1BbCa98AD756c7CE38D7097fBA7C237a) |
+| Start Block        | 40726553                                                                                                                        |
 
 ---
 
 ## Tech Stack
 
-| Component | Technology | Version |
-|---|---|---|
-| Indexing Framework | Ponder | 0.16.6 |
-| Web Framework | Hono | - |
-| Ethereum Library | Viem | - |
-| Language | TypeScript | - |
-| Database (default) | SQLite | - |
-| Database (optional) | PostgreSQL | - |
+| Component           | Technology | Version |
+| ------------------- | ---------- | ------- |
+| Indexing Framework  | Ponder     | 0.16.6  |
+| Web Framework       | Hono       | -       |
+| Ethereum Library    | Viem       | -       |
+| Language            | TypeScript | -       |
+| Database (default)  | SQLite     | -       |
+| Database (optional) | PostgreSQL | -       |
 
 ---
 
@@ -126,7 +127,7 @@ doman-indexer/
 
 ## Pages
 
-| Page | Description |
-|------|-------------|
+| Page                                 | Description                                                  |
+| ------------------------------------ | ------------------------------------------------------------ |
 | [Setup & Deployment](/indexer/setup) | Installation, configuration, scripts, and Railway deployment |
-| [API Reference](/indexer/api) | GraphQL and SQL endpoint usage examples |
+| [API Reference](/indexer/api)        | GraphQL and SQL endpoint usage examples                      |

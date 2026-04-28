@@ -13,8 +13,8 @@ On-chain scam reporting and community voting contracts for the **DOMAN** platfor
 
 ## Contracts
 
-| Contract | Description |
-|---|---|
+| Contract                                       | Description                                                                 |
+| ---------------------------------------------- | --------------------------------------------------------------------------- |
 | [ScamReporter](/smart-contracts/scam-reporter) | Decentralized scam-report vote submission with anti-double-vote enforcement |
 
 ---
@@ -76,9 +76,10 @@ sequenceDiagram
 
 ## Deployed Contracts
 
-| Network | Chain ID | Contract Address |
-|---|---|---|
-| Base Sepolia | 84532 | [`0x65534f1a1bbca98ad756c7ce38d7097fba7c237a`](https://sepolia.basescan.org/address/0x65534f1a1bbca98ad756c7ce38d7097fba7c237a) |
+| Network      | Chain ID | Contract Address                                                                                                                | Status   |
+| ------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Base Sepolia | 84532    | [`0x574F67B22B49eFd39D03F51627fA79CEB4a2449C`](https://sepolia.basescan.org/address/0x574F67B22B49eFd39D03F51627fA79CEB4a2449C) | Current  |
+| Base Sepolia | 84532    | [`0x65534f1a1bbca98ad756c7ce38d7097fba7c237a`](https://sepolia.basescan.org/address/0x65534f1a1bbca98ad756c7ce38d7097fba7c237a) | Previous |
 
 ---
 
@@ -101,7 +102,7 @@ doman-contracts/
 
 ## Pages
 
-| Page | Description |
-|------|-------------|
+| Page                                                    | Description                                    |
+| ------------------------------------------------------- | ---------------------------------------------- |
 | [ScamReporter Contract](/smart-contracts/scam-reporter) | Functions, events, errors, and hash generation |
-| [Development](/smart-contracts/development) | Setup, build, test, deploy with Foundry |
+| [Development](/smart-contracts/development)             | Setup, build, test, deploy with Foundry        |
