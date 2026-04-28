@@ -1,6 +1,6 @@
 ---
 title: "dApp Security"
-description: "Hybrid safety check — GoPlus API, local blacklist, caching"
+description: "Hybrid safety check — local lists, DOMAN API, GoPlus, caching"
 ---
 
 ## 1. dApp Security System
@@ -11,24 +11,29 @@ The system uses a 3-tier approach:
 
 ```mermaid
 flowchart TD
-    A["Incoming URL check"] --> B["Tier 1: GoPlus Security API (online)<br/>GET /api/v1/phishing_site?url={url}<br/>Primary check — real-time phishing data"]
-    B --> C{API success?}
-    C -->|Yes| D["Return result"]
-    C -->|API error| E["Tier 2: Local Blacklist (offline fallback)<br/>KNOWN_SCAM_DOMAINS — 30+ known scam sites<br/>KNOWN_SAFE_DOMAINS — 25+ verified dApps"]
-    E --> F{Match found?}
-    F -->|Yes in scam list| G["Return danger"]
-    F -->|Yes in safe list| H["Return safe"]
-    F -->|No match| I["Tier 3: Unknown (warning level)<br/>If no match in either list -> warning"]
+    A["Incoming URL check"] --> B["Tier 1: Local lists (offline)<br/>KNOWN_SCAM_DOMAINS / KNOWN_SAFE_DOMAINS"]
+    B --> C{Match found?}
+    C -->|Scam| D["Return danger"]
+    C -->|Safe| E["Return safe"]
+    C -->|No match| F["Tier 2: DOMAN API<br/>GET /api/v1/check-domain?domain=..."]
+    F --> G{DOMAN response}
+    G -->|isScam = true| D
+    G -->|riskScore < 40| E
+    G -->|riskScore >= 60| H["Return warning"]
+    G -->|No data / error| I["Tier 3: GoPlus API<br/>/api/v1/phishing_site?url=..."]
+    I --> J{Phishing?}
+    J -->|Yes| D
+    J -->|No| H
 ```
 
 ### 1.2 Safety Level Semantics
 
-| Level | Color | Meaning | Badge | Banner |
-|-------|-------|---------|-------|--------|
-| `safe` | Green | Domain verified, not phishing | `ON` | Not displayed |
+| Level     | Color        | Meaning                                            | Badge  | Banner                  |
+| --------- | ------------ | -------------------------------------------------- | ------ | ----------------------- |
+| `safe`    | Green        | Domain verified, not phishing                      | `ON`   | Not displayed           |
 | `warning` | Yellow/Amber | Not detected as phishing, but not in verified list | `WARN` | Displayed (dismissible) |
-| `danger` | Red | Detected as phishing/scam site | `RISK` | Displayed (dismissible) |
-| `unknown` | Gray | Not a dApp or cannot be checked | — | Not displayed |
+| `danger`  | Red          | Detected as phishing/scam site                     | `RISK` | Displayed (dismissible) |
+| `unknown` | Gray         | Not a dApp or cannot be checked                    | —      | Not displayed           |
 
 ### 1.3 Caching
 

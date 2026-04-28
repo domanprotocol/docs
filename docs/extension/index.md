@@ -6,7 +6,7 @@ description: "DOMAN Browser Extension — Overview, architecture, and setup"
 # DOMAN — End-to-End Documentation
 
 > **Browser Extension: Community-Powered Security Layer for Base Chain**
-> Version 0.0.1 | Last Updated: 26 April 2026
+> Version 0.2.0 | Last Updated: 28 April 2026
 
 ---
 
@@ -14,11 +14,12 @@ description: "DOMAN Browser Extension — Overview, architecture, and setup"
 
 ### 1.1 What is DOMAN?
 
-DOMAN (formerly DOMAN) is a browser extension that provides a **community-powered security layer** for the Base chain ecosystem. The extension protects users from:
+DOMAN is a browser extension that provides a **community-powered security layer** for the Base chain ecosystem. The extension protects users from:
 
 - **Phishing sites** — automatic detection when users visit dangerous sites
 - **Scam addresses** — community database that flags suspicious wallets
 - **Risky contracts** — scanner that analyzes smart contracts before interaction
+- **Wallet-draining bots** — bots that auto-approve transactions and drain balances
 
 ### 1.2 Problem Solved
 
@@ -42,7 +43,7 @@ graph TD
         Background["Background<br/>Service Worker<br/>(background.ts)"]
         subgraph ContentScripts["CONTENT SCRIPTS (per tab)"]
             WalletBridge["wallet-bridge.ts<br/>(ISOLATED world, document_start)<br/>Listens wallet events (accountsChanged,<br/>chainChanged), forwards to background<br/>via CustomEvent + sendMessage"]
-            DappChecker["dapp-checker.tsx<br/>(ISOLATED world, document_idle)<br/>Auto-checks URL against GoPlus API +<br/>local blacklist, shows warning banners"]
+            DappChecker["dapp-checker.tsx<br/>(ISOLATED world, document_idle)<br/>Auto-checks URL using local lists +<br/>DOMAN API + GoPlus, shows warning banners"]
             IndexOverlay["index.tsx<br/>(ISOLATED world, document_idle)<br/>Shows DOMAN Active badge + address<br/>tagging overlay with hover detail cards"]
         end
     end
@@ -64,10 +65,10 @@ graph TD
 
 The extension uses two execution worlds in content scripts:
 
-| World | Access | Used by |
-|-------|--------|---------|
-| `ISOLATED` | Chrome API, DOM, `chrome.runtime` | All content scripts |
-| `MAIN` | `window.ethereum`, page JS context | Wallet connect/switch via `chrome.scripting.executeScript` |
+| World      | Access                             | Used by                                                    |
+| ---------- | ---------------------------------- | ---------------------------------------------------------- |
+| `ISOLATED` | Chrome API, DOM, `chrome.runtime`  | All content scripts                                        |
+| `MAIN`     | `window.ethereum`, page JS context | Wallet connect/switch via `chrome.scripting.executeScript` |
 
 **Important:** Plasmo v0.90.5 does not reliably register `.ts` MAIN world content scripts in the manifest. Therefore, MAIN world code is injected via `chrome.scripting.executeScript({ world: "MAIN" })` from the background script. This is the same pattern used by MetaMask.
 
@@ -75,19 +76,20 @@ The extension uses two execution worlds in content scripts:
 
 ## 3. Tech Stack
 
-| Component | Technology | Version |
-|-----------|-----------|---------|
-| Framework | Plasmo | 0.90.5 |
-| UI Library | React | 18.2.0 |
-| Language | TypeScript | 5.3.3 |
-| Styling | Tailwind CSS | 3.4.19 |
-| Chain | Base (Chain ID: 8453) | - |
-| Ethereum SDK | ethers.js | 6.16.0 |
-| Wallet Support | MetaMask, Coinbase Wallet | - |
-| Security API | GoPlus Security | v1 |
-| Backend API | REST (custom) | v1 |
-| Build Tool | Plasmo (webpack-based) | - |
-| CSS Utilities | clsx, tailwind-merge | 2.1.1, 3.5.0 |
+| Component      | Technology                | Version      |
+| -------------- | ------------------------- | ------------ |
+| Framework      | Plasmo                    | 0.90.5       |
+| UI Library     | React                     | 18.2.0       |
+| Language       | TypeScript                | 5.3.3        |
+| Styling        | Tailwind CSS              | 3.4.19       |
+| Chain          | Base (Chain ID: 8453)     | -            |
+| Ethereum SDK   | ethers.js                 | 6.16.0       |
+| Wallet Support | MetaMask, Coinbase Wallet | -            |
+| Security API   | GoPlus Labs               | v1           |
+| Backend API    | REST (custom)             | v1           |
+| Build Tool     | Plasmo (webpack-based)    | -            |
+| CSS Utilities  | clsx, tailwind-merge      | 2.1.1, 3.5.0 |
+| Fonts          | Space Grotesk, Geist Mono | -            |
 
 ---
 
@@ -145,8 +147,7 @@ doman-extension/
 │   │
 │   └── assets/
 │       ├── icon.png                      # Extension icon
-│       ├── logo1.png                     # Brand logo variant
-│       └── logo2.png                     # Brand logo variant
+│       └── logo.png                      # Brand logo
 │
 └── build/                                # Build output (generated)
     └── chrome-mv3-prod/                  # Production build
@@ -161,52 +162,51 @@ doman-extension/
 - Node.js >= 18
 - npm >= 9
 - Chrome / Chromium browser
+- MetaMask or Coinbase Wallet
 
-### 5.2 Install Dependencies
+### 5.2 Install & Run
 
 ```bash
+# Clone repository
+git clone https://github.com/domanprotocol/extension.git
+cd wallo-extension
+
+# Install dependencies
 npm install
-```
 
-### 5.3 Development Mode
-
-```bash
+# Development mode (hot-reload)
 npm run dev
-```
 
-Starts the Plasmo dev server with hot-reload. The extension can be loaded from `build/chrome-mv3-dev/`.
-
-### 5.4 Production Build
-
-```bash
+# Production build
 npm run build
-```
 
-Output to `build/chrome-mv3-prod/`.
-
-### 5.5 Package for Distribution
-
-```bash
+# Package for Chrome Web Store (ZIP)
 npm run package
 ```
 
-Creates a `.zip` ready for upload to the Chrome Web Store.
-
-### 5.6 Load Extension in Chrome
+### 5.3 Load Extension in Chrome
 
 1. Run `npm run build`
-2. Open Chrome -> `chrome://extensions`
+2. Open Chrome -> `chrome://extensions/`
 3. Enable **Developer mode** (toggle in top right)
 4. Click **Load unpacked**
 5. Select the `build/chrome-mv3-prod/` folder
 6. The extension icon appears in the toolbar
 
-### 5.7 Environment Variables
+### 5.4 Manual Install from Release
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `PLASMO_PUBLIC_DOMAN_API_BASE` | `http://localhost:3000` | Base URL for DOMAN backend API |
-| `PLASMO_PUBLIC_DASHBOARD_URL` | `http://localhost:3000` | Dashboard URL for deep analytics |
+1. Download latest `doman-extension-v0.1.0.zip` from [Releases](/domanprotocol/extension/releases)
+2. Extract the ZIP file
+3. Open `chrome://extensions/`
+4. Enable **Developer mode**
+5. Click **Load unpacked** -> select the extracted folder
+
+### 5.5 Environment Variables
+
+| Variable                       | Default                            | Description                      |
+| ------------------------------ | ---------------------------------- | -------------------------------- |
+| `PLASMO_PUBLIC_DOMAN_API_BASE` | `https://domanprotocol.vercel.app` | Base URL for DOMAN backend API   |
+| `PLASMO_PUBLIC_DASHBOARD_URL`  | `https://domanprotocol.vercel.app` | Dashboard URL for deep analytics |
 
 ---
 
@@ -216,25 +216,18 @@ The extension uses **Manifest V3** generated by Plasmo.
 
 ### Permissions
 
-| Permission | Reason |
-|-----------|--------|
-| `storage` | Persist wallet state, user settings, cache |
-| `activeTab` | Access active tab for wallet operations |
-| `tabs` | Query tab info for page status check |
-| `scripting` | Inject MAIN world script for wallet connect |
-
-### Host Permissions
-
-| Pattern | Reason |
-|---------|--------|
-| `<all_urls>` | Content scripts run on all pages |
-| `http://localhost/*` | Backend API local development |
-| `https://api.gopluslabs.io/*` | GoPlus phishing detection API |
+| Permission   | Reason                                      |
+| ------------ | ------------------------------------------- |
+| `storage`    | Persist wallet state, user settings, cache  |
+| `activeTab`  | Access active tab for wallet operations     |
+| `scripting`  | Inject MAIN world script for wallet connect |
+| `tabs`       | Query tab info for page status check        |
+| `<all_urls>` | Content scripts run on all pages            |
 
 ### Content Scripts Registration (by Plasmo)
 
-| Script | `run_at` | World | Matches |
-|--------|----------|-------|---------|
-| `wallet-bridge.ts` | `document_start` | ISOLATED | `<all_urls>` |
-| `dapp-checker.tsx` | `document_idle` | ISOLATED | `<all_urls>` |
-| `index.tsx` (contents/) | `document_idle` | ISOLATED | `<all_urls>` |
+| Script                  | `run_at`         | World    | Matches      |
+| ----------------------- | ---------------- | -------- | ------------ |
+| `wallet-bridge.ts`      | `document_start` | ISOLATED | `<all_urls>` |
+| `dapp-checker.tsx`      | `document_idle`  | ISOLATED | `<all_urls>` |
+| `index.tsx` (contents/) | `document_idle`  | ISOLATED | `<all_urls>` |

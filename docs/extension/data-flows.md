@@ -31,19 +31,30 @@ flowchart TD
     B --> C["chrome.runtime.sendMessage<br/>{ type: CHECK_DAPP, url }"]
     C --> D["background.ts: handleCheckDapp(url)"]
     D --> E["Parse hostname, check cache"]
-    E --> F["fetch GoPlus API:<br/>/api/v1/phishing_site?url=..."]
-    F --> G{Is phishing?}
-    G -->|Yes| H["Return { level: danger }"]
-    G -->|No| I["Check local safe/scam lists"]
-    I --> J["Cache result (10 min TTL)"]
-    J --> K["Return { level, reason }"]
-    K --> L{level is danger/warning?}
-    L -->|Yes| M["Show banner overlay"]
-    A --> N["contents/index.tsx: also runs CHECK_DAPP"]
-    N --> O["chrome.runtime.sendMessage<br/>{ type: DAPP_RESULT, level, hostname }"]
-    O --> P["background.ts: setDappActionBadge(tabId, level)"]
-    P --> Q["chrome.action.setBadgeText({ text, tabId })"]
-    Q --> R["chrome.action.setBadgeBackgroundColor({ color, tabId })"]
+    E --> F["Tier 1: Local safe/scam lists"]
+    F --> G{Match found?}
+    G -->|Scam| H["Return { level: danger }"]
+    G -->|Safe| I["Return { level: safe }"]
+    G -->|No match| J["Tier 2: DOMAN API<br/>GET /api/v1/check-domain"]
+    J --> K{DOMAN data?}
+    K -->|isScam = true| H
+    K -->|riskScore < 40| I
+    K -->|riskScore >= 60| L["Return { level: warning }"]
+    K -->|No data / error| M["Tier 3: GoPlus API<br/>/api/v1/phishing_site?url=..."]
+    M --> N{Is phishing?}
+    N -->|Yes| H
+    N -->|No| L
+    H --> O["Cache result (10 min TTL)"]
+    I --> O
+    L --> O
+    O --> P["Return { level, reason }"]
+    P --> Q{level is danger/warning?}
+    Q -->|Yes| R["Show banner overlay"]
+    A --> S["contents/index.tsx: also runs CHECK_DAPP"]
+    S --> T["chrome.runtime.sendMessage<br/>{ type: DAPP_RESULT, level, hostname }"]
+    T --> U["background.ts: setDappActionBadge(tabId, level)"]
+    U --> V["chrome.action.setBadgeText({ text, tabId })"]
+    V --> W["chrome.action.setBadgeBackgroundColor({ color, tabId })"]
 ```
 
 ### 1.3 Address Check
