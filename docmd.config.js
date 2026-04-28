@@ -73,6 +73,16 @@ export default defineConfig({
       ],
     },
     {
+      title: 'Indexer',
+      icon: 'database',
+      collapsible: true,
+      children: [
+        { title: 'Overview', path: '/indexer/', icon: 'eye' },
+        { title: 'Setup & Deployment', path: '/indexer/setup', icon: 'rocket' },
+        { title: 'API Reference', path: '/indexer/api', icon: 'server' },
+      ],
+    },
+    {
       title: 'Dashboard',
       icon: 'layout-dashboard',
       collapsible: true,
